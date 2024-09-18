@@ -1,244 +1,207 @@
-index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Car Rental Stock Management</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-    header {
-      background-color: #0044cc;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-    }
-    .container {
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    h1, h2 {
-      color: #333;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-    }
-    th {
-      background-color: #0044cc;
-      color: white;
-    }
-    select, input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button.delete-btn {
-      background-color: #000000;
-      border-radius: 4px;
-      padding: 6px 10px;
-    }
-    button.delete-btn:hover {
-      background-color: #000000;
-    }
-    button.confirm-btn {
-      background-color: #10b900;
-      padding: 6px 10px;
-      margin-right: 10px;
-    }
-    .delete-confirmation {
-      display: none;
-      background-color: #fff;
-      padding: 10px;
-      border: 1px solid #ddd;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      border-radius: 4px;
-      position: absolute;
-      z-index: 999;
-    }
-    .form-table {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .action-column {
-      position: relative;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karenta Stok Mobil</title>
+    <!-- Your existing CSS or head content -->
 </head>
 <body>
 
-  <header>
-    <h1>Car Rental Stock Management</h1>
-  </header>
+    <!-- Your table structure and form for adding new cars goes here -->
 
-  <div class="container">
+    <table id="avanzaTable">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th>Color</th>
+                <th>Plate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="avanzaTableBody">
+            <!-- Rows will be dynamically populated here -->
+        </tbody>
+    </table>
 
-    <!-- Car Stock Table Section -->
-    <div class="section">
-      <h2>Available Cars</h2>
-      <table id="carTable">
-        <tr>
-          <th>Car Model</th>
-          <th>Year</th>
-          <th>Status</th>
-          <th>Plate Number</th>
-          <th>Action</th>
-        </tr>
-        <!-- Pre-existing cars -->
-        <tr>
-          <td>Avanza/Veloz</td>
-          <td>2019-2021</td>
-          <td>
-            <select onchange="updateStatus(this)">
-              <option value="Available">Available</option>
-              <option value="Rented">Rented</option>
-              <option value="Washing">Washing</option>
-              <option value="Maintenance">Maintenance</option>
-            </select>
-          </td>
-          <td>ABC123</td>
-          <td class="action-column">
-            <button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
-            <div class="delete-confirmation">
-              <button class="confirm-btn" onclick="deleteCar(this)">Confirm</button>
-              <button class="delete-btn" onclick="cancelDelete(this)">Cancel</button>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <table id="innovaTable">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th>Color</th>
+                <th>Plate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="innovaTableBody">
+            <!-- Rows will be dynamically populated here -->
+        </tbody>
+    </table>
 
-    <!-- Form to Add New Cars -->
-    <div class="section">
-      <h2>Add a New Car</h2>
-      <table class="form-table">
-        <tr>
-          <td><label for="model">Car Model:</label></td>
-          <td><input type="text" id="model" name="model" required></td>
-        </tr>
-        <tr>
-          <td><label for="year">Year:</label></td>
-          <td><input type="text" id="year" name="year" required></td>
-        </tr>
-        <tr>
-          <td><label for="status">Status:</label></td>
-          <td>
-            <select id="status" name="status">
-              <option value="Available">Available</option>
-              <option value="Rented">Rented</option>
-              <option value="Washing">Washing</option>
-              <option value="Maintenance">Maintenance</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td><label for="plate">Plate Number:</label></td>
-          <td><input type="text" id="plate" name="plate" required></td>
-        </tr>
-        <tr>
-          <td colspan="2" style="text-align: right;">
-            <button type="button" onclick="addCar()">Add Car</button>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <table id="hiaceTable">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th>Color</th>
+                <th>Plate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="hiaceTableBody">
+            <!-- Rows will be dynamically populated here -->
+        </tbody>
+    </table>
 
-  </div>
+    <!-- Form for adding new cars -->
+    <form id="carForm" onsubmit="addCar(); return false;">
+        <label for="model">Model:</label>
+        <select id="model">
+            <option value="Avanza/Veloz">Avanza/Veloz</option>
+            <option value="Innova Reborn">Innova Reborn</option>
+            <option value="Hiace">Hiace</option>
+        </select><br>
 
-  <!-- JavaScript Functions -->
-  <script>
-    // Function to add a new car to the table
-    function addCar() {
-      var model = document.getElementById('model').value;
-      var year = document.getElementById('year').value;
-      var status = document.getElementById('status').value;
-      var plate = document.getElementById('plate').value;
+        <label for="year">Year:</label>
+        <input type="text" id="year" required><br>
 
-      var table = document.getElementById('carTable');
-      var row = table.insertRow(-1);
+        <label for="color">Color:</label>
+        <input type="text" id="color" required><br>
 
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      var cell3 = row.insertCell(2);
-      var cell4 = row.insertCell(3);
-      var cell5 = row.insertCell(4);
+        <label for="plate">Plate:</label>
+        <input type="text" id="plate" required><br>
 
-      cell1.innerHTML = model;
-      cell2.innerHTML = year;
-      cell3.innerHTML = `<select onchange="updateStatus(this)">
-                            <option value="Available" ${status === 'Available' ? 'selected' : ''}>Available</option>
-                            <option value="Rented" ${status === 'Rented' ? 'selected' : ''}>Rented</option>
-                            <option value="Washing" ${status === 'Washing' ? 'selected' : ''}>Washing</option>
-                            <option value="Maintenance" ${status === 'Maintenance' ? 'selected' : ''}>Maintenance</option>
-                          </select>`;
-      cell4.innerHTML = plate;
-      cell5.innerHTML = `<button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
-                         <div class="delete-confirmation">
-                            <button class="confirm-btn" onclick="deleteCar(this)">Confirm</button>
-                            <button class="delete-btn" onclick="cancelDelete(this)">Cancel</button>
-                         </div>`;
+        <label for="status">Status:</label>
+        <select id="status">
+            <option value="Available">Tersedia</option>
+            <option value="Rented">Disewa</option>
+            <option value="Washing">Dicuci</option>
+            <option value="Maintenance">Perawatan</option>
+        </select><br>
 
-      document.getElementById('model').value = '';
-      document.getElementById('year').value = '';
-      document.getElementById('plate').value = '';
-    }
+        <button type="submit">Add Car</button>
+    </form>
 
-    // Function to update car status
-    function updateStatus(select) {
-      // Status update logic
-    }
+    <!-- Place the JavaScript code here -->
+    <script>
+      // Load data from localStorage on page load
+      document.addEventListener("DOMContentLoaded", function() {
+        loadCarsFromStorage();
+      });
 
-    // Function to confirm deletion of a car row
-    function confirmDelete(button) {
-      var confirmationDiv = button.nextElementSibling;
-      confirmationDiv.style.display = 'block';
-    }
+      // Function to save cars to localStorage
+      function saveCarsToStorage() {
+        localStorage.setItem('cars', JSON.stringify(cars));
+      }
 
-    // Function to delete a car row
-    function deleteCar(button) {
-      var row = button.parentNode.parentNode.parentNode;
-      row.parentNode.removeChild(row);
-    }
+      // Function to load cars from localStorage
+      function loadCarsFromStorage() {
+        let savedCars = localStorage.getItem('cars');
+        if (savedCars) {
+          cars = JSON.parse(savedCars);
+          renderTables();
+        }
+      }
 
-    // Function to cancel deletion
-    function cancelDelete(button) {
-      var confirmationDiv = button.parentNode;
-      confirmationDiv.style.display = 'none';
-    }
-  </script>
+      // Function to update the car's status in localStorage
+      function updateCarStatus(model, plate, newStatus) {
+        for (let car of cars[model]) {
+          if (car.plate === plate) {
+            car.status = newStatus;
+            saveCarsToStorage();
+            renderTables();  // Re-render tables to show updated status
+            break;
+          }
+        }
+      }
+
+      // Function to add a new car and save it to localStorage
+      function addCar() {
+        let model = document.getElementById('model').value;
+        let year = document.getElementById('year').value;
+        let color = document.getElementById('color').value;
+        let status = document.getElementById('status').value;
+        let plate = document.getElementById('plate').value;
+
+        // Add car to the correct model's array
+        cars[model].push({ model, year, color, status, plate });
+
+        // Save to localStorage and re-render tables
+        saveCarsToStorage();
+        renderTables();
+      }
+
+      // Function to render car tables
+      function renderTables() {
+        document.getElementById('avanzaTableBody').innerHTML = '';
+        document.getElementById('innovaTableBody').innerHTML = '';
+        document.getElementById('hiaceTableBody').innerHTML = '';
+
+        // Loop through cars and populate the respective table
+        for (let model in cars) {
+          cars[model].forEach(car => {
+            let row = `<tr>
+              <td>${car.model}</td>
+              <td>${car.year}</td>
+              <td>
+                <select onchange="updateCarStatus('${car.model}', '${car.plate}', this.value)">
+                  <option value="Available" ${car.status === 'Available' ? 'selected' : ''}>Tersedia</option>
+                  <option value="Rented" ${car.status === 'Rented' ? 'selected' : ''}>Disewa</option>
+                  <option value="Washing" ${car.status === 'Washing' ? 'selected' : ''}>Dicuci</option>
+                  <option value="Maintenance" ${car.status === 'Maintenance' ? 'selected' : ''}>Perawatan</option>
+                </select>
+              </td>
+              <td>${car.color}</td>
+              <td>${car.plate}</td>
+              <td><button onclick="deleteCar('${car.model}', '${car.plate}')">Delete</button></td>
+            </tr>`;
+            
+            if (car.model === 'Avanza/Veloz') {
+              document.getElementById('avanzaTableBody').innerHTML += row;
+            } else if (car.model === 'Innova Reborn') {
+              document.getElementById('innovaTableBody').innerHTML += row;
+            } else if (car.model === 'Hiace') {
+              document.getElementById('hiaceTableBody').innerHTML += row;
+            }
+          });
+        }
+      }
+
+      // Function to delete a car
+      function deleteCar(model, plate) {
+        cars[model] = cars[model].filter(car => car.plate !== plate);
+        saveCarsToStorage();
+        renderTables();
+      }
+
+      // Initial car data
+      let cars = {
+        'Avanza/Veloz': [
+          { model: 'Avanza/Veloz', year: '2020', color: 'Silver', status: 'Available', plate: 'BP 1835 CY' },
+          { model: 'Avanza/Veloz', year: '2020', color: 'Silver', status: 'Available', plate: 'BP 1836 CY' },
+          { model: 'Avanza/Veloz', year: '2020', color: 'Silver', status: 'Available', plate: 'BP 1370 CY' },
+          { model: 'Avanza/Veloz', year: '2020', color: 'Silver', status: 'Available', plate: 'BP 1893 CY' },
+          { model: 'Avanza/Veloz', year: '2020', color: 'Silver', status: 'Available', plate: 'BP 1582 CY' },
+        ],
+        'Innova Reborn': [
+          { model: 'Innova Reborn', year: '2018', color: 'Abu', status: 'Available', plate: 'BP 7125 CY' },
+          { model: 'Innova Reborn', year: '2018', color: 'Silver', status: 'Available', plate: 'BP 1838 CY' },
+          { model: 'Innova Reborn', year: '2018', color: 'Hitam', status: 'Available', plate: 'BP 1562 CY' },
+          { model: 'Innova Reborn', year: '2018', color: 'Coklat', status: 'Available', plate: 'BP 1941 YC' },
+        ],
+        'Hiace': [
+          { model: 'Hiace', year: '2018', color: 'Silver', status: 'Available', plate: 'B 7056 SAA' },
+          { model: 'Hiace', year: '2018', color: 'Putih', status: 'Available', plate: 'BP 7028 KY' },
+        ]
+      };
+
+      renderTables();
+    </script>
 
 </body>
 </html>
